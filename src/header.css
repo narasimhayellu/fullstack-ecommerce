@@ -1,0 +1,70 @@
+.home{
+    padding: 2rem;
+    font-size: 25px;
+    color: black;
+    position: absolute;
+    left: 75%;
+    text-decoration: none;
+  }
+  .fc{
+    height: 40px;
+    margin-top: 30px;
+    position: absolute;
+    left: 90px;
+    border-radius: 50px;
+  }
+  
+  .login{
+    padding: 2rem;
+    font-size: 25px;
+    color: black;
+    position: absolute;
+    left: 70%;
+    text-decoration: none;
+  }
+  
+  .signup{
+    padding: 2rem;
+    font-size: 25px;
+    color: black;
+    position: absolute;
+    left: 82%;
+    text-decoration: none;
+  }
+  .top{
+   position: sticky;
+   margin-left: -12px;
+    height: 100px;
+    width: 100vw;
+    background-color: rgb(230, 218, 44);
+    display: flex;
+  }
+  .crave{
+    color: black;
+    font-size: 25px;
+    padding: 10px;
+    position: absolute;
+    top: 25px;
+    left: 150px;
+    text-decoration: none;
+  }
+
+  .cart{
+    color: black;
+    padding: 2rem;
+    font-size: 25px;
+    position: absolute;
+    left: 82%;
+    text-decoration: none;
+  }
+  
+  .logout{
+    color: black;
+    padding: 2rem;
+    font-size: 25px;
+    position: absolute;
+    left: 88%;
+    text-decoration: none;
+  }
+
+  
