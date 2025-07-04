@@ -1,3 +1,7 @@
+# Backend files
+backend/
+.env
+
 # Logs
 logs
 *.log
