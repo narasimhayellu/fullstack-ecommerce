@@ -1,70 +1,68 @@
-.home{
-    padding: 2rem;
-    font-size: 25px;
-    color: black;
-    position: absolute;
-    left: 75%;
-    text-decoration: none;
-  }
-  .fc{
-    height: 40px;
-    margin-top: 30px;
-    position: absolute;
-    left: 90px;
-    border-radius: 50px;
-  }
-  
-  .login{
-    padding: 2rem;
-    font-size: 25px;
-    color: black;
-    position: absolute;
-    left: 70%;
-    text-decoration: none;
-  }
-  
-  .signup{
-    padding: 2rem;
-    font-size: 25px;
-    color: black;
-    position: absolute;
-    left: 82%;
-    text-decoration: none;
-  }
-  .top{
-   position: sticky;
-   margin-left: -12px;
-    height: 100px;
-    width: 100vw;
-    background-color: rgb(230, 218, 44);
-    display: flex;
-  }
-  .crave{
-    color: black;
-    font-size: 25px;
-    padding: 10px;
-    position: absolute;
-    top: 25px;
-    left: 150px;
-    text-decoration: none;
-  }
+.top {
+  position: sticky;
+  top: 0;
+  margin-left: -12px;
+  height: 100px;
+  width: 100vw;
+  background-color: rgb(230, 218, 44);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid #333;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0 2rem;
+  z-index: 1000;
+}
 
-  .cart{
-    color: black;
-    padding: 2rem;
-    font-size: 25px;
-    position: absolute;
-    left: 82%;
-    text-decoration: none;
-  }
-  
-  .logout{
-    color: black;
-    padding: 2rem;
-    font-size: 25px;
-    position: absolute;
-    left: 88%;
-    text-decoration: none;
-  }
+.fc {
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
+}
 
-  
+.fc:hover {
+  transform: scale(1.1);
+}
+
+.crave {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.header-links {
+  display: flex;
+  gap: 2rem;
+  margin-right: 2rem;
+}
+
+.header-links a {
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.header-links a:hover {
+  color: darkred;
+}
+
+.header-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background-color: darkred;
+  transition: width 0.3s ease;
+}
+
+.header-links a:hover::after {
+  width: 100%;
+}

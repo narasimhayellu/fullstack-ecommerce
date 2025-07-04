@@ -14,7 +14,7 @@ const {qty, id, name, image} = cartItem;
             <h1>{name}</h1>
             <h1>Quantity: {qty}</h1>
             <div className="d-flex justify-content-center">
-            <Button variant="contained" color="error" onClick={()=>{if(qty > 0){removeQty(id)} else if(qty < 1){removeItem(id)}}}>-</Button>
+            <Button variant="contained" color="error" onClick={()=>removeQty(id,qty)}>-</Button>
             <Typography variant="h6" component="h1">&nbsp; Qty:{qty} &nbsp;</Typography>
             <Button variant="contained" color="success" onClick={()=>addQty(id)}>+</Button>
             </div>

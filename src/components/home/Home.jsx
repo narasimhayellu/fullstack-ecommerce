@@ -40,8 +40,8 @@ console.log(products);
     return (
       <div>
       {!isLogin ? (<Login />) :
-        loader ? ( 
-        <div>
+        loader ? (  
+        <div className='loader'>
           <RotatingLines
           visible={true}
           height="96"

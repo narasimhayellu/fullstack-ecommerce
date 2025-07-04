@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import "./Login.css"
 import { AuthContext } from '../../auth/auth-context';
 import { Link } from 'react-router-dom';
@@ -12,18 +12,53 @@ const Login = () => {
     });
     
     const {login} = useContext(AuthContext);
+    const [errors, setErrors] = useState({});
 
     const onHandleChange = (event) => {
      
-        const name = event.target.name;
-        const value = event.target.value;
-        setFormData({...formData, [name]: value});
+        const { name, value } = event.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    
+        // Live validation
+        if (name === "email") {
+          if (!/^[\w.-]+@[\w.-]+\.\w{2,}$/.test(value)) {
+            setErrors(prev => ({ ...prev, email: "Invalid email format" }));
+          } else {
+            setErrors(prev => ({ ...prev, email: "" }));
+          }
+        }
+    
+        if (name === "password") {
+          if (value.length < 6) {
+            setErrors(prev => ({ ...prev, password: "Password must be at least 6 characters" }));
+          } else {
+            setErrors(prev => ({ ...prev, password: "" }));
+          }
+        }
+        
     }
 
     const submitHandler = (event) => {
         event.preventDefault()
-        console.log(formData, "form submitted");
-        login(formData); 
+        const newErrors = {};
+
+        // Final check before submit
+        if (!formData.email) {
+          newErrors.email = "Email is required";
+        } else if (!/^[\w.-]+@[\w.-]+\.\w{2,}$/.test(formData.email)) {
+          newErrors.email = "Invalid email format";
+        }
+    
+        if (!formData.password) {
+          newErrors.password = "Password is required";
+        } else if (formData.password.length < 6) {
+          newErrors.password = "Password must be at least 6 characters";
+        }
+    
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length === 0) {
+            login(formData);
+          }
     }
     
     return (
@@ -36,10 +71,12 @@ const Login = () => {
                 <div className="form-group">
                     <label>Email</label>
                     <input onChange={onHandleChange} name="email" type="email" placeholder="Enter your email id" required/>
+                    {errors.email && <p className="error">{errors.email}</p>}
                 </div>
                 <div  className="form-group">
                     <label>Password</label>
                     <input onChange={onHandleChange} name="password" type="password" placeholder="Enter your password" required/>
+                    {errors.password && <p className="error">{errors.password}</p>}
                 </div>
                 <Button color="primary" variant="contained" type='submit'>Login</Button>
                 <div className='mt-3'>
@@ -53,3 +90,4 @@ const Login = () => {
 }
 
 export default Login;
+

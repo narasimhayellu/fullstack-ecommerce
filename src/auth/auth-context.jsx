@@ -1,68 +1,65 @@
+import axios from "axios";
 import { enqueueSnackbar } from "notistack";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
     const [isLogin, setLogin] = useState(
-        JSON.parse(localStorage.getItem("isLogin"))
+        JSON.parse(localStorage.getItem("isLogin")) || false
     );
-
     const navigate = useNavigate();
-    
-    const login = async(formData) => {
-        const usersData = localStorage.getItem("users")
-        ? JSON.parse(localStorage.getItem("users"))
-        :[];
 
-        const myArr = usersData.filter((each) => {
-            console.log(each);
-            return each.email === formData.email && each.password === formData.password;
-        })
-
-        if(myArr.length > 0){
+    const login = async (formData) => {
+        try {
+            const response = await axios.post("http://localhost:3000/users/login", formData);
+            console.log("Login response:", response.data);
+            
+            // Extract userId from response and store as string (not JSON)
+            const userId = response.data.userId;
+            localStorage.setItem("userId", userId); // Store as string, not JSON
+            
+            // Store login status
             setLogin(true);
-            navigate("/");
+            localStorage.setItem("isLogin", JSON.stringify(true));
+            
             enqueueSnackbar("Login successful!", { variant: "success" });
+            navigate("/");
+        } catch (error) {
+            console.error("Login error:", error);
+            enqueueSnackbar("Wrong email or password", { variant: "error" });
         }
-            else{
-                enqueueSnackbar("Wrong email or Password. Please re-check", {variant: "error",});
-            }
-        }
-    
-    const logout = async()=>{
+    };
+
+    const logout = () => {
         setLogin(false);
         localStorage.setItem("isLogin", JSON.stringify(false));
+        localStorage.removeItem("userId"); // Clear userId on logout
+        localStorage.removeItem("cart"); // Clear cart on logout
         navigate("/");
         enqueueSnackbar("Logout successful!", { variant: "info" });
-    }    
+    };
 
-    const signUp = async(formData) => {
-        const {email} = formData;
-
-        const usersData = localStorage.getItem("users")
-        ? JSON.parse(localStorage.getItem("users"))
-        :[];
-        console.log(usersData);
-
-        const myArr = usersData.filter((each) => {
-            console.log(each);
-            return each.email === email;
-        })
-        if(myArr.length > 0){
-            enqueueSnackbar("User already exists!", { variant: "error" });
-        } else {
-            usersData.push(formData);
-            console.log(usersData);
-            localStorage.setItem("users", JSON.stringify(usersData));
-            navigate("/");
+    const signUp = async (formData) => {
+        try {
+            const response = await axios.post("http://localhost:3000/users/register", formData);
+            console.log("Signup response:", response.data);
             enqueueSnackbar("Signup successful!", { variant: "success" });
+            navigate("/login");
+        } catch (error) {
+            console.error("Signup error:", error);
+            enqueueSnackbar("Signup failed. Email might already be registered.", { variant: "error" });
         }
-    }
-    return(
-        <AuthContext.Provider value = {{login, setLogin, isLogin, signUp, logout}}>
+    };
+
+    return (
+        <AuthContext.Provider value={{ login, setLogin, isLogin, signUp, logout }}>
             {children}
-        </AuthContext.Provider> 
+        </AuthContext.Provider>
     );
 };
+
+
+
+
