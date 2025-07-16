@@ -46,7 +46,7 @@ const ProductDetails = () => {
             }
             
             console.log("Saving cart to DB for userId:", userId);
-            await axios.post("http://localhost:3000/cart/save", {
+            await axios.post("https://fullstack-ecommerce-backend-qo62.onrender.com/cart/save", {
                 userId,
                 items: updatedCart,
             });

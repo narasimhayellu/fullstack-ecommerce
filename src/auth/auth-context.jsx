@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (formData) => {
         try {
-            const response = await axios.post("http://localhost:3000/users/login", formData);
+            const response = await axios.post("https://fullstack-ecommerce-backend-qo62.onrender.com/users/login", formData);
             console.log("Login response:", response.data);
             
             // Extract userId from response and store as string (not JSON)
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
     const signUp = async (formData) => {
         try {
-            const response = await axios.post("http://localhost:3000/users/register", formData);
+            const response = await axios.post("https://fullstack-ecommerce-backend-qo62.onrender.com/users/register", formData);
             console.log("Signup response:", response.data);
             enqueueSnackbar("Signup successful!", { variant: "success" });
             navigate("/login");

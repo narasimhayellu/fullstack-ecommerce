@@ -21,7 +21,7 @@ const Cart = () => {
         }      
     
         try {
-            await axios.post("http://localhost:3000/cart/save", {
+            await axios.post("https://fullstack-ecommerce-backend-qo62.onrender.com/cart/save", {
                 userId,
                 items: updatedCart,
             }, {
@@ -75,7 +75,7 @@ const Cart = () => {
             try {
                 if (userId) {
                     console.log("Fetching cart for userId:", userId);
-                    const response = await axios.get(`http://localhost:3000/cart/${userId}`);
+                    const response = await axios.get(`https://fullstack-ecommerce-backend-qo62.onrender.com/cart/${userId}`);
                     console.log("Cart response:", response.data);
                     
                     if (response.data && response.data.items) {
